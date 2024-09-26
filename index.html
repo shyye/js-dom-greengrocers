@@ -13,23 +13,58 @@
     <header id="store">
       <h1>Greengrocers</h1>
 
-      <label for="filter-type">Filter By:</label>
-      <select name="filter-type" id="filter">
-        <option value="">--All--</option>
-        <option value="fruit">Fruit and Berries</option>
-        <option value="vegetable">Vegetables / Greens</option>
-      </select>
+      <div class="center">
+        <div>
+          <label for="filter-type">Filter By:</label>
+          <select name="filter-type" id="filter">
+            <option value="">--All--</option>
+            <option value="fruit">Fruit and Berries</option>
+            <option value="vegetable">Vegetables / Greens</option>
+          </select>
 
-      <label for="sort">Filter By:</label>
-      <select name="sort" id="sort">
-        <option value="">--All--</option>
-        <option value="price">Price</option>
-        <option value="alphabetically">Alphabetically</option>
-      </select>
+          <label for="sort">Sort By:</label>
+          <select name="sort" id="sort">
+            <option value="">--All--</option>
+            <option value="price">Price</option>
+            <option value="alphabetically">Alphabetically</option>
+          </select>
+        </div>
+        <br>
+      </div>
 
+      
       <ul class="item-list store--item-list">
         <!-- Take a look at store-item.html -->
       </ul>
+
+
+      <div class="center">
+        <br>
+
+        <h2>Add new product</h2>
+        <form action="" method="get" class="form-new-product">
+          <div class="form-new-product">
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name" required />
+          </div>
+          <div class="form-new-product">
+            <label for="price">Price: </label>
+            <input type="number" name="price" id="price" required />
+          </div>
+          <div class="form-new-product">
+            <label for="type">type: </label>
+            <input type="text" name="type" id="type" required />
+          </div>
+          <div class="form-new-product">
+            <input type="submit" value="Add new item to store" id="add-store-item-button" />
+          </div>
+        </form>
+
+
+        <!-- <button id="add-store-item-button">Add new item to store</button> -->
+        
+      </div> 
+
     </header>
 
     <main id="cart">

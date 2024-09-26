@@ -70,6 +70,7 @@ const state = {
 const storeItemListUL = document.querySelector(".store--item-list")
 const cartItemListUL = document.querySelector(".cart--item-list")
 const totalCostSpan = document.querySelector(".total-number")
+const addStoreItemButton = document.getElementById("add-store-item-button")
 
 // Store Item List to modify on filter and sort
 let storeItemsList = state.items
@@ -103,6 +104,32 @@ sortSelectElement.addEventListener('change', function() {
   renderStoreItems()  
 })
 
+// Add new store items
+addStoreItemButton.addEventListener('click', (event) => {
+  event.preventDefault()
+
+  const name = document.getElementById("name")
+  const price = document.getElementById("price")
+  const type = document.getElementById("type")
+
+  const newProduct = {}
+  newProduct.id = "xxx"   // Not fully implemented
+  newProduct.name = name.value
+  newProduct.price = price.value
+  newProduct.type = type.value
+
+  state.items.push(newProduct)
+  
+  // Dispatch event https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent
+  // Trigger event so new product shows up directly
+  // But also resets the filters, NOTE: Could be improved
+  filterSelectElement.value = ""
+  sortSelectElement.value = ""
+  filterSelectElement.dispatchEvent(new Event('change'));
+  sortSelectElement.dispatchEvent(new Event('change'));
+
+  renderStoreItems()
+})
 
 
 // Add to cart
@@ -146,6 +173,8 @@ function decreaseQuantity(cartItem) {
   renderCartItems();
 }
 
+
+// RENDER FUNCTIONS
 // Store items
 function renderStoreItems() {
   // Reset items
