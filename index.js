@@ -3,7 +3,8 @@ const state = {
     {
       id: "001-beetroot",
       name: "beetroot",
-      price: 0.35,
+      // price: 0.35,
+      price: 1.05,
       type: "vegetable",
     },
     {
@@ -21,7 +22,8 @@ const state = {
     {
       id: "004-apricot",
       name: "apricot",
-      price: 0.35,
+      // price: 0.35,
+      price: 1.35,
       type: "fruit",
     },
     {
@@ -69,18 +71,39 @@ const storeItemListUL = document.querySelector(".store--item-list")
 const cartItemListUL = document.querySelector(".cart--item-list")
 const totalCostSpan = document.querySelector(".total-number")
 
+// Store Item List to modify on filter and sort
+let storeItemsList = state.items
+
 // Filter value
 const filterSelectElement = document.getElementById("filter")
-
 filterSelectElement.addEventListener('change', function() {
-  const filterValue =  filterSelectElement.value
+  
+  const filterValue = filterSelectElement.value
   if (filterValue === '') {
-    renderStoreItems()
+    storeItemsList = state.items
   } else {
-    let itemList = state.items.filter((item) => item.type === filterValue)
-    renderStoreItems(itemList)
-  }  
+    storeItemsList = state.items.filter((item) => item.type === filterValue)
+  }
+  renderStoreItems()  
 })
+
+// Sort
+const sortSelectElement = document.getElementById("sort")
+sortSelectElement.addEventListener('change', function() {
+  
+  const sortValue = sortSelectElement.value
+  if (sortValue === '') {
+    storeItemsList.sort((a, b) => a.id.localeCompare(b.id))
+  } else if (sortValue === 'price') {
+    storeItemsList.sort((a, b) => a.price - b.price)
+  } else if (sortValue === 'alphabetically') {
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
+    storeItemsList.sort((a, b) => a.name.localeCompare(b.name))
+  }
+  renderStoreItems()  
+})
+
+
 
 // Add to cart
 function addToCart(itemId) {
@@ -123,11 +146,12 @@ function decreaseQuantity(cartItem) {
   renderCartItems();
 }
 
-function renderStoreItems(itemList = state.items) {
+// Store items
+function renderStoreItems() {
   // Reset items
   storeItemListUL.innerHTML = "";
 
-  itemList.forEach((item) => {
+  storeItemsList.forEach((item) => {
     let element = document.createElement("li");
     const htmlString = `
           <div class="store--item-icon">
